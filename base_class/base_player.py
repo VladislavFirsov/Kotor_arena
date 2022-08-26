@@ -1,4 +1,4 @@
-class Person:
+class BasePlayer:
     class Characteriscics:
         def __set_name__(self, owner, name):
             self.name = f'__{name}'
@@ -13,8 +13,11 @@ class Person:
     strength = Characteriscics()
     dexterity = Characteriscics()
     vitality = Characteriscics()
+    intelligence = Characteriscics()
+    wisdom = Characteriscics()
+    force_points = Characteriscics()
 
-    def __init__(self, name, strength, dexterity, vitality):
+    def __init__(self, name, strength, dexterity, vitality, intelligence, wisdom, force_points):
         self.__name = name
         self.__body = None
         self.__right_hand = None
@@ -22,6 +25,9 @@ class Person:
         self.strength = strength
         self.dexterity = dexterity
         self.vitality = vitality
+        self.force_points = force_points
+        self.intelligence = intelligence
+        self.wisdom = wisdom
 
     @property
     def body(self):
