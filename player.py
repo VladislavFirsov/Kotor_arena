@@ -4,31 +4,30 @@ from base_class.base_player import BasePlayer
 from arsenal.arsenal import Weapon, Armor
 
 
-class Inventory:
-    inventory = [[], []]
-
-    def add_to(self, value):
-        if isinstance(value, Weapon):
-            self.inventory[0].append(value)
-        elif isinstance(value, Armor):
-            self.inventory[1].append(value)
-
-    def take_from(self, name):
-        for bag in self.inventory:
-            for item in bag:
-                if item.name == name:
-                    return bag.pop(bag.index(item))
-
-    def show_weapon(self):
-        for i in self.inventory[0]:
-            print(i)
-
-    def show_armor(self):
-        for i in self.inventory[1]:
-            print(i)
-
-
 class Player(BasePlayer):
+    class Inventory:
+        inventory = [[], []]
+
+        def add_to(self, value):
+            if isinstance(value, Weapon):
+                self.inventory[0].append(value)
+            elif isinstance(value, Armor):
+                self.inventory[1].append(value)
+
+        def take_from(self, name):
+            for bag in self.inventory:
+                for item in bag:
+                    if item.name == name:
+                        return bag.pop(bag.index(item))
+
+        def show_weapon(self):
+            for i in self.inventory[0]:
+                print(i)
+
+        def show_armor(self):
+            for i in self.inventory[1]:
+                print(i)
+
     __upgrade_points = 0
     experience = BasePlayer.Characteriscics()
     balance = BasePlayer.Characteriscics()
@@ -41,7 +40,7 @@ class Player(BasePlayer):
 
     def __init__(self, name, experience, balance, lvl):
         super().__init__(name, 8, 8, 40, 8, 8, 9)
-        self.inventory = Inventory()
+        self.inventory = Player.Inventory()
         self.experience = experience
         self.lvl = lvl
         self.balance = balance
