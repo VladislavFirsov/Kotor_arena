@@ -1,5 +1,6 @@
 from arsenal.arsenal import Weapon, Armor
 
+
 class BasePlayer:
     class Characteriscics:
         def __set_name__(self, owner, name):

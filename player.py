@@ -63,9 +63,9 @@ class Player(BasePlayer):
                 self.vitality += number
             elif char == 'intelligence':
                 self.intelligence += number
+                self.force_points += number * 3
             else:
                 self.wisdom += number
-                self.force_points += number * 3
         self.__upgrade_points -= number
 
     def show_chars(self):
