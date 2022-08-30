@@ -60,7 +60,7 @@ class Player(BasePlayer):
             elif char == 'dexterity':
                 self.dexterity += number
             elif char == 'vitality':
-                self.vitality += number
+                self.vitality += number * 10
             elif char == 'intelligence':
                 self.intelligence += number
                 self.force_points += number * 3
