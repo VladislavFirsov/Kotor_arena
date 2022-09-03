@@ -18,9 +18,8 @@ class BasePlayer:
     vitality = Characteriscics()
     intelligence = Characteriscics()
     wisdom = Characteriscics()
-    force_points = Characteriscics()
 
-    def __init__(self, name, strength, dexterity, vitality, intelligence, wisdom, force_points):
+    def __init__(self, name, strength, dexterity, vitality, intelligence, wisdom):
         self._name = name
         self._body = None
         self._right_hand = None
@@ -28,7 +27,6 @@ class BasePlayer:
         self.strength = strength
         self.dexterity = dexterity
         self.vitality = vitality
-        self.force_points = force_points
         self.intelligence = intelligence
         self.wisdom = wisdom
 

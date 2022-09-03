@@ -1,5 +1,5 @@
-#try to implement an automatic lvl_up if possible later
-#create abilities
+# try to implement an automatic lvl_up if possible later
+# create abilities
 from base_class.base_player import BasePlayer
 from arsenal.arsenal import Weapon, Armor
 from shop import Shop
@@ -33,23 +33,26 @@ class Player(BasePlayer):
     experience = BasePlayer.Characteriscics()
     balance = BasePlayer.Characteriscics()
     lvl = BasePlayer.Characteriscics()
+    force_points = BasePlayer.Characteriscics()
 
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, 'instance'):
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __init__(self, name, experience, balance, lvl):
-        super().__init__(name, 8, 8, 40, 8, 8, 9)
+    def __init__(self, name, experience, force_points, balance, lvl):
+        super().__init__(name, 8, 8, 40, 8, 8)
         self.inventory = Player.Inventory()
         self.experience = experience
         self.lvl = lvl
         self.balance = balance
+        self.force_points = force_points
 
     def lvl_up(self):
         if len(str(self.experience)) == 4 and self.experience % 1000 == 0 and self.lvl <= 10:
             self.__upgrade_points += 3
             self.lvl += 1
+            self.force_points += 3
 
     def __check_points(self, number):
         return self.__upgrade_points - number >= 0
@@ -64,7 +67,6 @@ class Player(BasePlayer):
                 self.vitality += number * 10
             elif char == 'intelligence':
                 self.intelligence += number
-                self.force_points += number * 3
             else:
                 self.wisdom += number
         self.__upgrade_points -= number
@@ -108,12 +110,3 @@ class Player(BasePlayer):
         if self.balance >= armor.price and self.lvl >= armor.lvl:
             self.inventory.add_to(armor)
             self.balance -= armor.price
-
-
-
-
-
-
-
-
-
