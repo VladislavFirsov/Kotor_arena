@@ -1,14 +1,15 @@
-#add a desription
+from random import choice
+
+
 class Armor:
-    def __init__(self, name, defence_bonus, price, lvl, dexterity_bonus=None):
+    def __init__(self, name, defence_bonus, price, lvl):
         self.name = name
         self.defence_bonus = defence_bonus
-        self.dexterity_bonus = dexterity_bonus
         self.price = price
         self.lvl = lvl
 
     def __str__(self):
-        return self.name
+        return f'name: {self.name}, defence_bonus: {self.defence_bonus}, price: {self.price} kredits, lvl: {self.lvl}'
 
 
 class Weapon:
@@ -23,4 +24,6 @@ class Weapon:
         return choice(self.damage)
 
     def __str__(self):
-        return self.name
+        return f'name: {self.name}, damage: {self.damage[0], self.damage[-1]}, price: {self.price} credits, lvl: {self.lvl}, {"one_handed" if self.one_handed else "double_handed"}'
+
+
