@@ -6,7 +6,7 @@ from arsenal.arsenal import Armor, Weapon
 class Shop():
     @classmethod
     def get_connection(cls):
-        with sqlite3.connect('shop.db') as db:
+        with sqlite3.connect('database.db') as db:
             cursor = db.cursor()
             return cursor
 
@@ -20,8 +20,8 @@ class Shop():
         c = self.get_connection()
         c.execute('SELECT * from weapon')
         for i in c:
-            print(f'name: {i[1]}, damage: {i[2]}, price: {i[3]} kredits, lvl: {i[4]}, {"One_handed" if i[-1] else "Double_handed"}')
-
+            print(
+                f'name: {i[1]}, damage: {i[2]}, price: {i[3]} kredits, lvl: {i[4]}, {"One_handed" if i[-1] else "Double_handed"}')
 
     def sell_weapon(self, name):
         c = self.get_connection()
@@ -35,21 +35,6 @@ class Shop():
         model = c.execute('SELECT * from armor WHERE name = (?)', [name]).fetchone()
         armor = Armor(model[1], model[2], model[3], model[-1])
         return armor
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
