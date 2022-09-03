@@ -2,6 +2,7 @@
 #create abilities
 from base_class.base_player import BasePlayer
 from arsenal.arsenal import Weapon, Armor
+from shop import Shop
 
 
 class Player(BasePlayer):
@@ -92,10 +93,24 @@ class Player(BasePlayer):
             self.inventory.add_to(self.body)
         self.body = armor
 
-    def sell_item(self, shop, name):
+    def sell_item(self, name):
         item = self.inventory.take_from(name)
         self.balance += item.price // 2
-        #add shop logic
+
+    def buy_weapon(self, shop, name):
+        weapon = shop.sell_weapon(shop, name)
+        if self.balance >= weapon.price and self.lvl >= weapon.lvl:
+            self.inventory.add_to(weapon)
+            self.balance -= weapon.price
+
+    def buy_armor(self, shop, name):
+        armor = shop.sell_armor(shop, name)
+        if self.balance >= armor.price and self.lvl >= armor.lvl:
+            self.inventory.add_to(armor)
+            self.balance -= armor.price
+
+
+
 
 
 
