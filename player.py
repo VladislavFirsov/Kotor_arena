@@ -2,7 +2,6 @@
 # create abilities
 from base_class.base_player import BasePlayer
 from arsenal.arsenal import Weapon, Armor
-from shop import Shop
 
 
 class Player(BasePlayer):
@@ -41,7 +40,7 @@ class Player(BasePlayer):
         return cls.instance
 
     def __init__(self, name, experience, force_points, balance, lvl):
-        super().__init__(name, 8, 8, 40, 8, 8)
+        super().__init__(name, 10, 10, 40, 10, 10)
         self.inventory = Player.Inventory()
         self.experience = experience
         self.lvl = lvl
