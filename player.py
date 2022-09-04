@@ -1,10 +1,10 @@
 # try to implement an automatic lvl_up if possible later
-# create abilities
 from base_class.base_player import BasePlayer
 from arsenal.arsenal import Weapon, Armor
+from abilities import Abilities
 
 
-class Player(BasePlayer):
+class Player(BasePlayer, Abilities):
     class Inventory:
         inventory = [[], []]
 
@@ -56,21 +56,21 @@ class Player(BasePlayer):
     def __check_points(self, number):
         return self.__upgrade_points - number >= 0
 
-    def upgrade_chars(self, char, number):
+    def upgrade_features(self, feature, number):
         if self.__check_points(number):
-            if char == 'strength':
+            if feature == 'strength':
                 self.strength += number
-            elif char == 'dexterity':
+            elif feature == 'dexterity':
                 self.dexterity += number
-            elif char == 'vitality':
+            elif feature == 'vitality':
                 self.vitality += number * 10
-            elif char == 'intelligence':
+            elif feature == 'intelligence':
                 self.intelligence += number
             else:
                 self.wisdom += number
         self.__upgrade_points -= number
 
-    def show_chars(self):
+    def show_features(self):
         print(f'strength: {self.strength}\nvitality: {self.vitality}\ndexterity: {self.dexterity}\n'
               f'intelligence: {self.intelligence}\nwisdom: {self.wisdom}')
 
@@ -109,3 +109,10 @@ class Player(BasePlayer):
         if self.balance >= armor.price and self.lvl >= armor.lvl:
             self.inventory.add_to(armor)
             self.balance -= armor.price
+
+
+vlad = Player('vlad', 1, 1, 1, 1)
+vlad.strength += 2
+print(vlad.strength)
+print(vlad.strong_attack())
+print(vlad.flurry())
