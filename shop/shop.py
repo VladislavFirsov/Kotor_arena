@@ -1,12 +1,12 @@
 import sqlite3
 import re
-from arsenal.arsenal import Armor, Weapon
+from shop.arsenal import Armor, Weapon
 
 
 class Shop():
     @classmethod
     def get_connection(cls):
-        with sqlite3.connect('database.db') as db:
+        with sqlite3.connect('../database.db') as db:
             cursor = db.cursor()
             return cursor
 
@@ -35,7 +35,3 @@ class Shop():
         model = c.execute('SELECT * from armor WHERE name = (?)', [name]).fetchone()
         armor = Armor(model[1], model[2], model[3], model[-1])
         return armor
-
-
-
-

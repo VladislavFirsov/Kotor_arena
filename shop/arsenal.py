@@ -25,5 +25,3 @@ class Weapon:
 
     def __str__(self):
         return f'name: {self.name}, damage: {self.damage[0], self.damage[-1]}, price: {self.price} credits, lvl: {self.lvl}, {"one_handed" if self.one_handed else "double_handed"}'
-
-

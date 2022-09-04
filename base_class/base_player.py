@@ -1,4 +1,4 @@
-from arsenal.arsenal import Weapon, Armor
+from shop.arsenal import Weapon, Armor
 
 
 class BasePlayer:

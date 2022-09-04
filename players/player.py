@@ -1,7 +1,6 @@
-# try to implement an automatic lvl_up if possible later
 from base_class.base_player import BasePlayer
-from arsenal.arsenal import Weapon, Armor
-from abilities import Abilities
+from shop.arsenal import Weapon, Armor
+from base_class.abilities import Abilities
 
 
 class Player(BasePlayer, Abilities):
@@ -109,10 +108,3 @@ class Player(BasePlayer, Abilities):
         if self.balance >= armor.price and self.lvl >= armor.lvl:
             self.inventory.add_to(armor)
             self.balance -= armor.price
-
-
-vlad = Player('vlad', 1, 1, 1, 1)
-vlad.strength += 2
-print(vlad.strength)
-print(vlad.strong_attack())
-print(vlad.flurry())

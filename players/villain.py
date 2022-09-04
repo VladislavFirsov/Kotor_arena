@@ -1,5 +1,5 @@
 from base_class.base_player import BasePlayer
-from abilities import Abilities
+from base_class.abilities import Abilities
 
 
 class Villain(BasePlayer, Abilities):
