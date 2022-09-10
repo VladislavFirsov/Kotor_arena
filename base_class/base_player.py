@@ -30,6 +30,9 @@ class BasePlayer:
         self.intelligence = intelligence
         self.wisdom = wisdom
 
+    def defence(self):
+        return 8 + self.body.defence_bonus
+
     @property
     def body(self):
         return self._body
@@ -57,5 +60,5 @@ class BasePlayer:
         if isinstance(value, Weapon) and self._right_hand:
             self._left_hand = value
 
-    def __str(self):
+    def __str__(self):
         return self._name

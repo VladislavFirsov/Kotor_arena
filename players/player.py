@@ -38,19 +38,17 @@ class Player(BasePlayer, Abilities):
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __init__(self, name, experience, force_points, balance, lvl):
+    def __init__(self, name, experience, balance, lvl):
         super().__init__(name, 10, 10, 40, 10, 10)
         self.inventory = Player.Inventory()
         self.experience = experience
         self.lvl = lvl
         self.balance = balance
-        self.force_points = force_points
 
     def lvl_up(self):
         if len(str(self.experience)) == 4 and self.experience % 1000 == 0 and self.lvl <= 10:
             self.__upgrade_points += 3
             self.lvl += 1
-            self.force_points += 3
 
     def __check_points(self, number):
         return self.__upgrade_points - number >= 0
@@ -108,3 +106,7 @@ class Player(BasePlayer, Abilities):
         if self.balance >= armor.price and self.lvl >= armor.lvl:
             self.inventory.add_to(armor)
             self.balance -= armor.price
+
+
+vlad = Player('vlad', 0, 0, 1)
+print(vlad.experience)

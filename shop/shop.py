@@ -1,27 +1,29 @@
 import sqlite3
 import re
-from shop.arsenal import Armor, Weapon
+from .arsenal import Armor, Weapon
 
 
-class Shop():
+class Shop:
     @classmethod
     def get_connection(cls):
-        with sqlite3.connect('../database.db') as db:
+        with sqlite3.connect('database.db') as db:
             cursor = db.cursor()
             return cursor
 
     def show_armor(self):
         c = self.get_connection()
-        c.execute('SELECT * from armor')
+        c.execute('SELECT * from armor ORDER BY lvl').fetchall()
         for i in c:
             print(f'name: {i[1]}, defence_bonus: {i[2]}, price: {i[3]} kredits, lvl: {i[-1]}')
 
-    def show_weapons(self):
+
+    def show_weapon(self):
         c = self.get_connection()
-        c.execute('SELECT * from weapon')
+        c.execute('SELECT * from weapon ORDER BY lvl').fetchall()
         for i in c:
             print(
                 f'name: {i[1]}, damage: {i[2]}, price: {i[3]} kredits, lvl: {i[4]}, {"One_handed" if i[-1] else "Double_handed"}')
+
 
     def sell_weapon(self, name):
         c = self.get_connection()
@@ -29,6 +31,7 @@ class Shop():
         damage = re.findall('[0-9]+', model[2])
         weapon = Weapon(model[1], range(int(damage[0]), int(damage[-1]) + 1), model[3], model[4], model[-1])
         return weapon
+
 
     def sell_armor(self, name):
         c = self.get_connection()
