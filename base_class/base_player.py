@@ -1,4 +1,4 @@
-from shop.arsenal import Weapon, Armor
+from game_process.arsenal import Armor, Weapon
 
 
 class BasePlayer:
@@ -10,7 +10,7 @@ class BasePlayer:
             return getattr(instance, self.name)
 
         def __set__(self, instance, value):
-            if type(value) is int and value >= 0:
+            if type(value) is int:
                 instance.__dict__[self.name] = value
 
     strength = Characteriscics()
@@ -20,7 +20,7 @@ class BasePlayer:
     wisdom = Characteriscics()
 
     def __init__(self, name, strength, dexterity, vitality, intelligence, wisdom):
-        self._name = name
+        self.name = name
         self._body = None
         self._right_hand = None
         self._left_hand = None
@@ -31,7 +31,7 @@ class BasePlayer:
         self.wisdom = wisdom
 
     def defence(self):
-        return 8 + self.body.defence_bonus
+        return 8 + self._body.defence_bonus
 
     @property
     def body(self):
@@ -39,7 +39,7 @@ class BasePlayer:
 
     @body.setter
     def body(self, value):
-        if isinstance(value, Armor):
+        if type(value) == Armor:
             self._body = value
 
     @property
@@ -48,7 +48,7 @@ class BasePlayer:
 
     @right_hand.setter
     def right_hand(self, value):
-        if isinstance(value, Weapon):
+        if type(value) == Weapon:
             self._right_hand = value
 
     @property
@@ -61,4 +61,5 @@ class BasePlayer:
             self._left_hand = value
 
     def __str__(self):
-        return self._name
+        return self.name
+

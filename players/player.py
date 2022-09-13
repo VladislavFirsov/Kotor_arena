@@ -1,6 +1,6 @@
 from base_class.base_player import BasePlayer
-from shop.arsenal import Weapon, Armor
 from base_class.abilities import Abilities
+from game_process.arsenal import Armor, Weapon
 
 
 class Player(BasePlayer, Abilities):
@@ -13,10 +13,10 @@ class Player(BasePlayer, Abilities):
             elif isinstance(value, Armor):
                 self.inventory[1].append(value)
 
-        def take_from(self, name):
+        def take_from(self, value):
             for bag in self.inventory:
                 for item in bag:
-                    if item.name == name:
+                    if item.name == value.name:
                         return bag.pop(bag.index(item))
 
         def show_weapon(self):
@@ -28,6 +28,7 @@ class Player(BasePlayer, Abilities):
                 print(i)
 
     __upgrade_points = 0
+    __exp_to_lvl_up = 1000
     experience = BasePlayer.Characteriscics()
     balance = BasePlayer.Characteriscics()
     lvl = BasePlayer.Characteriscics()
@@ -38,17 +39,18 @@ class Player(BasePlayer, Abilities):
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __init__(self, name, experience, balance, lvl):
-        super().__init__(name, 10, 10, 40, 10, 10)
+    def __init__(self, name, strength, dexterity, vitality, intelligence, wisdom, experience, balance, lvl):
+        super().__init__(name, strength, dexterity, vitality, intelligence, wisdom)
         self.inventory = Player.Inventory()
         self.experience = experience
         self.lvl = lvl
         self.balance = balance
 
     def lvl_up(self):
-        if len(str(self.experience)) == 4 and self.experience % 1000 == 0 and self.lvl <= 10:
+        if self.experience >= self.__exp_to_lvl_up:
             self.__upgrade_points += 3
             self.lvl += 1
+            self.__exp_to_lvl_up += 1000
 
     def __check_points(self, number):
         return self.__upgrade_points - number >= 0
@@ -70,6 +72,11 @@ class Player(BasePlayer, Abilities):
     def show_features(self):
         print(f'strength: {self.strength}\nvitality: {self.vitality}\ndexterity: {self.dexterity}\n'
               f'intelligence: {self.intelligence}\nwisdom: {self.wisdom}')
+
+    def show_interface(self):
+        print(f'experience: {self.experience}\nbalance: {self.balance}\n lvl: {self.lvl}\n'
+              f'exp for the next lvl: {self.__exp_to_lvl_up - self.experience}')
+        print(f'In your inventory now: {self.inventory.show_armor()}\n{self.inventory.show_weapon()}')
 
     @property
     def upgrade_points(self):
@@ -95,18 +102,12 @@ class Player(BasePlayer, Abilities):
         item = self.inventory.take_from(name)
         self.balance += item.price // 2
 
-    def buy_weapon(self, shop, name):
-        weapon = shop.sell_weapon(shop, name)
-        if self.balance >= weapon.price and self.lvl >= weapon.lvl:
-            self.inventory.add_to(weapon)
-            self.balance -= weapon.price
+    def buy_weapon(self, name):
+        self.inventory.add_to(name)
+        self.balance -= name.price
 
-    def buy_armor(self, shop, name):
-        armor = shop.sell_armor(shop, name)
-        if self.balance >= armor.price and self.lvl >= armor.lvl:
-            self.inventory.add_to(armor)
-            self.balance -= armor.price
+    def buy_armor(self, name):
+        self.inventory.add_to(name)
+        self.balance -= name.price
 
 
-vlad = Player('vlad', 0, 0, 1)
-print(vlad.experience)
